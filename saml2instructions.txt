@@ -8,6 +8,9 @@
 
 5. Audience URI: http://localhost:7074/saml2/service-provider-metadata/okta
 
-6. Generate certificate
+6. Default relay state
+http://localhost:7074/home
+
+7. Generate certificate
 openssl req -newkey rsa:2048 -nodes -keyout local.key -x509 -days 365 -out local.crt
 
