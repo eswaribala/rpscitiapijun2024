@@ -1,0 +1,13 @@
+#okta server
+1.create app integration
+2. select saml 2 std
+#it uses application deployment url
+3.Single sign on URL: http://localhost:7074/login/saml2/sso/okta
+
+4. Use this for Recipient URL and Destination URL: ✅ (the default)
+
+5. Audience URI: http://localhost:7074/saml2/service-provider-metadata/okta
+
+6. Generate certificate
+openssl req -newkey rsa:2048 -nodes -keyout local.key -x509 -days 365 -out local.crt
+
