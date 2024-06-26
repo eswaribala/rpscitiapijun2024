@@ -12,5 +12,11 @@
 http://localhost:7074/home
 
 7. Generate certificate
+create docker container
+docker run -it name=ubuntu -d ubuntu
+docker exec -it ubuntu bash
+#apt update
+#apt install openssl
+
 openssl req -newkey rsa:2048 -nodes -keyout local.key -x509 -days 365 -out local.crt
 
