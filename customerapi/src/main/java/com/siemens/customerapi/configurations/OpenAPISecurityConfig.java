@@ -1,4 +1,6 @@
 package com.siemens.customerapi.configurations;
+
+
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -27,7 +29,7 @@ public class OpenAPISecurityConfig {
                 return new OpenAPI().components(new Components()
                                 .addSecuritySchemes(OAUTH_SCHEME_NAME, createOAuthScheme()))
                         .addSecurityItem(new SecurityRequirement().addList(OAUTH_SCHEME_NAME))
-                        .info(new Info().title("Todos Management Service")
+                        .info(new Info().title("Customer Management Service")
                                 .description("A service providing todos.")
                                 .version("1.0"));
         }
@@ -45,9 +47,11 @@ public class OpenAPISecurityConfig {
 
         private OAuthFlow createAuthorizationCodeFlow() {
                 return new OAuthFlow()
-                        .authorizationUrl(authServerUrl)
-                        .scopes(new Scopes().addString("read_access", "read data")
-                                .addString("write_access", "modify data"));
+                        .authorizationUrl(authServerUrl);
+
+                      //  .scopes(new Scopes().addString("read_access", "read data")
+                             //   .addString("write_access", "modify data"));
         }
 
 }
+
