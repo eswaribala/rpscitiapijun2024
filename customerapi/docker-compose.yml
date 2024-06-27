@@ -1,45 +1,55 @@
 version: '3.9'
 
 services:
-  postgres:
-    image: postgres:15
+  mysql:
+    image: mysql
     environment:
-      - POSTGRES_USER=postgres
-      - POSTGRES_PASSWORD=postgres
-      - LC_ALL=C.UTF-8
-      - POSTGRES_DB=customerdb
-      - POSTGRES_PORT=5434
-    ports:
-      - 5434:5432
+      - MYSQL_ROOT_PASSWORD=password
+      - MYSQL_DATABASE=customerdb
+    volumes:
+      - /data/mysql
+#    healthcheck:
+#      interval: 30s
+#      timeout: 10s
+#      retries: 5
+      #networks:
+      #- boanetwork
 
-  customer-app:
-    image: customerapp
+  bankaccount-api:
+    image: customerapi
     build:
       context: ./
       dockerfile: dockerfile
     depends_on:
-      - postgres
+      - mysql
     deploy:
       restart_policy:
         condition: on-failure
         delay: 5s
         max_attempts: 15
         window: 50s
+      resources:
+        limits:
+          cpus: '1.0'
+          memory: 2048M
+        reservations:
+          cpus: '1.0'
+          memory: 2048M
     ports:
-       #- 8060-8070:7070
-        - 7074:7074
+      #- 8060-8070:7070
+      - 7070:7070
     volumes:
       - /data/compose-app
-    #networks:
-      #- boanetwork   
-    
+      #networks:
+      #- boanetwork
 
-### put all the networks here
-#networks:
+
+  ### put all the networks here
+  #networks:
   #boanetwork:
-networks: 
-  default: 
-    external: 
+networks:
+  default:
+    external:
       name: citinetwork
 
   
